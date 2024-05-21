@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginApi } from "../api/authApi";
 
 const initialState = {
   user: null,
