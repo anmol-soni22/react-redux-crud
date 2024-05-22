@@ -14,7 +14,7 @@ export default function Header({ open, handleDrawerOpen, drawerWidth }) {
   const user = useSelector((state) => state.auth.user);
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    navigate("/login");
+    navigate("/login", { replace: true });
   };
 
   return (
