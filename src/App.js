@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import store from "./store";
 import LoginPage from "./components/Auth/LoginPage";
 import PrivateRoute from "./components/Auth/PrivateRoute";
@@ -30,6 +30,9 @@ function App() {
               element={<PersistentDrawerLeft mainContent={<ProductList />} />}
             />
           </Route>
+
+          {/* Catch-all route for undefined paths */}
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Router>
     </Provider>

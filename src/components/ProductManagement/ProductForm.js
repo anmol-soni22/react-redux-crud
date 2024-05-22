@@ -110,7 +110,7 @@ function ProductForm({ product, onClose }) {
           severity="success"
           onClose={handleCloseSuccessAlert}
         >
-          Product added successfully!!
+           Product {product ? "updated" : "added"} successfully!!
         </Alert>
       )}
       <CardContent>

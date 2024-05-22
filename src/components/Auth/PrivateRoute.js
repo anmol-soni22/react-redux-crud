@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshApi } from "../../api/authApi";
 import { loginSuccess } from "../../store/authSlice";
@@ -9,6 +9,7 @@ const PrivateRoute = () => {
   const [loading, setLoading] = useState(true);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     const checkTokenOnRefresh = async () => {
@@ -33,7 +34,11 @@ const PrivateRoute = () => {
     return <LinearProgress />;
   }
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/unauthenticated" />;
+  if (!isLoggedIn) {
+    return location.pathname === "/" ? <Navigate to="/login" /> : <Navigate to="/unauthenticated" />;
+  }
+
+  return <Outlet />;
 };
 
 export default PrivateRoute;
