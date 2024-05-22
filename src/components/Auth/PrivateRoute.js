@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { refreshApi } from "../../api/authApi";
 import { loginSuccess } from "../../store/authSlice";
@@ -10,11 +10,16 @@ const PrivateRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      navigate("/unauthenticated");
+    }
     const checkTokenOnRefresh = async () => {
       try {
-        const user = await refreshApi();
+        const user = await refreshApi(token);
         dispatch(loginSuccess(user));
       } catch (error) {
         console.error(error);
@@ -35,7 +40,11 @@ const PrivateRoute = () => {
   }
 
   if (!isLoggedIn) {
-    return location.pathname === "/" ? <Navigate to="/login" /> : <Navigate to="/unauthenticated" />;
+    return location.pathname === "/" ? (
+      <Navigate to="/login" />
+    ) : (
+      <Navigate to="/unauthenticated" />
+    );
   }
 
   return <Outlet />;

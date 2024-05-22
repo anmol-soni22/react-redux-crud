@@ -6,7 +6,7 @@ import LoginPage from "./components/Auth/LoginPage";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ProductList from "./components/ProductManagement/ProductList";
-import PersistentDrawerLeft from "./layout/Layout";
+import Layout from "./layout/Layout";
 import UnauthenticatedPage from "./components/Auth/UnauthenticatedPage";
 
 function App() {
@@ -23,11 +23,12 @@ function App() {
             <Route
               exact
               path="dashboard"
-              element={<PersistentDrawerLeft mainContent={<Dashboard />} />}
+              element={<Layout mainContent={<Dashboard />} />}
             />
             <Route
+              exact
               path="products"
-              element={<PersistentDrawerLeft mainContent={<ProductList />} />}
+              element={<Layout mainContent={<ProductList />} />}
             />
           </Route>
 

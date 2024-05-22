@@ -12,13 +12,8 @@ export const loginApi = async (userData) => {
   }
 };
 
-export const refreshApi = async () => {
+export const refreshApi = async (token) => {
   try {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      throw new Error('Token not found');
-    }
-
     const response = await axios.get(`${BASE_URL}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`
