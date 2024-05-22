@@ -20,8 +20,6 @@ const productSlice = createSlice({
       state.products = state.products.filter(product => product.id !== action.payload);
     },
     updateProduct: (state, action) => {
-      console.log(action.payload)
-      console.log(state.products);
       const { id, updatedProduct } = action.payload;
       const index = state.products.findIndex(product => product.id === id);
       if (index !== -1) {
